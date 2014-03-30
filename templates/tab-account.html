@@ -7,7 +7,15 @@
         <span ng-show="auth.user">
           Logged in as {{auth.user.name}} | <a href="#" ng-click="auth.$logout()">Logout</a>
         </span>
-        <a href="#" ng-hide="auth.user" ng-click="auth.$login('password')">Login</a>    
+        <div class="list" ng-hide="auth.user">
+          <label class="item item-input">
+            <input type="text" placeholder="email" ng-model="email">
+          </label>
+          <label class="item item-input">
+            <input type="password" placeholder="password" ng-model="password">
+          </label>
+          <button class="button button-block button-positive" ng-click="auth()">Sign in</button>    
+        </div>
       </div>
     </div>
   
