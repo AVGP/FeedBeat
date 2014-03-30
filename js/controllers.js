@@ -29,14 +29,14 @@ angular.module('starter.controllers', [])
   $scope.auth = $firebaseSimpleLogin(ref);
   
   $scope.logon = function() {
-    $rootScope.auth.$login('password', { email: $scope.$$childHead.email, password: $scope.$$childHead.password }).then(
+    $scope.auth.$login('password', { email: $scope.$$childHead.email, password: $scope.$$childHead.password }).then(
       function onSuccess(user) {
         console.log('Logged in!', user);
       },
       function onError(error) {
         console.log("Error:", error);
         if(error.code == 'INVALID_USER') {
-          $rootScope.auth.$createUser($scope.$$childHead.email, $scope.$$childHead.password, false).then(function success(user) {
+          $scope.auth.$createUser($scope.$$childHead.email, $scope.$$childHead.password, false).then(function success(user) {
             console.log(user);
           }, function error(error) {
             console.log(error);
