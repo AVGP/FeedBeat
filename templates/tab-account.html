@@ -5,7 +5,7 @@
       <div class="item item-divider">FeedBeat account</div>
       <div class="item item-text-wrap" style="height: 150px">
         <span ng-show="auth.user">
-          Logged in as {{auth.user.name}} | <a href="#" ng-click="auth.$logout()">Logout</a>
+          Logged in as {{auth.user.email}} | <a href="#" ng-click="auth.$logout()">Logout</a>
         </span>
         <div class="list" ng-hide="auth.user">
           <label class="item item-input">
@@ -14,7 +14,9 @@
           <label class="item item-input">
             <input type="password" placeholder="password" ng-model="password">
           </label>
-          <button class="button button-block button-positive" ng-click="logon()">Sign in</button>    
+          <div class="padding">
+            <button class="button button-block button-positive" ng-click="logon()">Sign in</button>
+          </div>
         </div>
       </div>
     </div>
