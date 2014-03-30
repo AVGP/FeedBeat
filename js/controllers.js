@@ -27,4 +27,18 @@ angular.module('starter.controllers', [])
 .controller('AccountCtrl', function($scope, $firebase, $firebaseSimpleLogin) {
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);
+  
+  $scope.logon = function() {
+    $scope.auth.$login('password', { email: $scope.email, password: $scope.password }).then(
+      function onSuccess(user) {
+        console.log('Logged in!', user);
+      },
+      function onError(error) {
+        if(error == 'INVALID_EMAIL') {
+          $scope.auth.$createUser($scope.email, $scope.password, function(err, user) {
+          });
+        }
+      }
+    );
+  };
 });
