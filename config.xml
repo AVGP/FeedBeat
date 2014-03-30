@@ -8,7 +8,7 @@
     
     <access origin="*" />
     
-    <icon src="img/icon512.png" />
+    <icon src="img/icon256.png" />
     
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="false" />
