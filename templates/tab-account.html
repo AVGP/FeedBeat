@@ -1,18 +1,15 @@
 <ion-view title="Account">
   <ion-content class="has-header padding">
 
-  <div class="card">
-    <div class="item item-divider">FeedBeat account</div>
-    <div class="item item-text-wrap" style="height: 150px">
-    
+    <div class="card">
+      <div class="item item-divider">FeedBeat account</div>
+      <div class="item item-text-wrap" style="height: 150px">
+        <span ng-show="auth.user">
+          Logged in as {{auth.user.name}} | <a href="#" ng-click="auth.$logout()">Logout</a>
+        </span>
+        <a href="#" ng-hide="auth.user" ng-click="auth.$login('password')">Login</a>    
+      </div>
     </div>
-  </div>
-
-  <div class="card">
-    <div class="item item-divider">RemoteStorage</div>
-    <div class="item item-text-wrap" style="height: 150px">
-      <div id="remotestorage-connect"></div>
-    </div>
-  </div>
+  
   </ion-content>
 </ion-view>
