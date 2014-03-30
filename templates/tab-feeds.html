@@ -1,4 +1,14 @@
 <ion-view title="Feeds">
-  <ion-content class="has-header padding">
+
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-plus-circled" ng-click="addFeed()"></button>
+  </ion-nav-buttons>
+
+  <ion-content class="padding" has-header="false">
+    <ul class="list">
+      <li ng-repeat="feed in feeds">
+        <a href="#" class="item">{{feed.title}}</a>
+      </li>
+    </ul>
   </ion-content>
 </ion-view>
