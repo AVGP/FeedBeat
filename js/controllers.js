@@ -24,7 +24,7 @@ angular.module('starter.controllers', [])
 .controller('FavouritesCtrl', function($scope) {
 })
 
-.controller('AccountCtrl', function($scope, $firebaseSimpleLogin) {
+.controller('AccountCtrl', function($scope, $firebase, $firebaseSimpleLogin) {
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);
 });
