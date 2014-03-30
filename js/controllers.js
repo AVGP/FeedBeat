@@ -24,6 +24,7 @@ angular.module('starter.controllers', [])
 .controller('FavouritesCtrl', function($scope) {
 })
 
-.controller('AccountCtrl', function($scope) {
-  remoteStorage.displayWidget("remotestorage-connect");    
+.controller('AccountCtrl', function($scope, $firebaseSimpleLogin) {
+  var ref = new Firebase('https://feedbeat.firebaseio.com/');
+  $scope.auth = $firebaseSimpleLogin(ref);
 });
