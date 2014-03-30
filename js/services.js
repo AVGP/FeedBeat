@@ -3,24 +3,33 @@ angular.module('starter.services', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('Friends', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var friends = [
-    { id: 0, name: 'Scruff McGruff' },
-    { id: 1, name: 'G.I. Joe' },
-    { id: 2, name: 'Miss Frizzle' },
-    { id: 3, name: 'Ash Ketchum' }
-  ];
-
-  return {
-    all: function() {
-      return friends;
+.factory('Feeds', function($firebase) {
+  var feeds = [];
+  var self = {
+    getAll: function() { return feeds; },
+    loadEntries: function(feedIndex, callback) {
+      var feed = new google.feeds.Feed(feeds[feedIndex].url);
+      feed.setNumEntries(1);
+      feed.load(callback);
     },
-    get: function(friendId) {
-      // Simple index lookup
-      return friends[friendId];
+    getAllEntries: function(callback) {
+      feeds.$on('loaded', function() {
+        feeds.$getIndex().forEach(function(key){
+          self.loadEntries(key, function(result) {
+            if(result.error) {
+              callback(result.error);
+              return;
+            }
+            
+            callback(undefined, result);
+          });
+        });
+      });
     }
-  }
+  };
+
+  var ref = new Firebase('https://feedbeat.firebaseio.com/');
+  feeds = $firebase(ref);
+
+  return self;
 });
