@@ -24,18 +24,22 @@ angular.module('starter.controllers', [])
 .controller('FavouritesCtrl', function($scope) {
 })
 
-.controller('AccountCtrl', function($scope, $firebase, $firebaseSimpleLogin) {
+.controller('AccountCtrl', function($scope, $rootScope, $firebase, $firebaseSimpleLogin) {
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
-  $scope.auth = $firebaseSimpleLogin(ref);
+  $rootScope.auth = $firebaseSimpleLogin(ref);
   
   $scope.logon = function() {
-    $scope.auth.$login('password', { email: $scope.email, password: $scope.password }).then(
+    $rootScope.auth.$login('password', { email: $scope.email, password: $scope.password }).then(
       function onSuccess(user) {
         console.log('Logged in!', user);
       },
       function onError(error) {
-        if(error == 'INVALID_EMAIL') {
-          $scope.auth.$createUser($scope.email, $scope.password, function(err, user) {
+        console.log("Error:", error);
+        if(error.code == 'INVALID_EMAIL') {
+          $rootScope.auth.$createUser($scope.email, $scope.password).then(function success(user) {
+            console.log(user);
+          }, function error(error) {
+            console.log(error);
           });
         }
       }
