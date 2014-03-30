@@ -1,8 +1,9 @@
 <ion-view title="Dashboard">
   <ion-content class="has-header padding">
     <div class="card" ng-repeat="article in articles">
+      <a class="item item-divider">{{article.title}}</a>    
       <div class="item item-text-wrap">
-        {{article.title}}: {{article.url}}
+        {{article.contentSnippet}}
       </div>
     </div>
   </ion-content>
