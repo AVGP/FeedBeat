@@ -7,9 +7,9 @@ angular.module('starter.services', [])
   var feeds = [];
   var self = {
     getAll: function() { return feeds; },
-    loadEntries: function(feedIndex, callback) {
+    loadEntries: function(feedIndex, maxItems, callback) {
       var feed = new google.feeds.Feed(feeds[feedIndex].url);
-      feed.setNumEntries(1);
+      feed.setNumEntries(maxItems);
       feed.load(callback);
     },
     init: function(uid) {
@@ -19,13 +19,13 @@ angular.module('starter.services', [])
     getAllEntries: function(callback) {
       feeds.$on('loaded', function() {
         feeds.$getIndex().forEach(function(key){
-          self.loadEntries(key, function(result) {
+          self.loadEntries(key, 3, function(result) {
             if(result.error) {
               callback(result.error);
               return;
             }
             
-            callback(undefined, result);
+            callback(undefined, {data: result, feedId: key});
           });
         });
       });
