@@ -9,7 +9,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    StatusBar.styleDefault();
+    //StatusBar.styleDefault();
   });
 })
 
