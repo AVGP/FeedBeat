@@ -22,7 +22,7 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('FeedsCtrl', function($scope, $rootScope, $firebase, $firebaseSimpleLogin) {
+.controller('FeedsCtrl', function($scope, $rootScope, $firebase, $firebaseSimpleLogin, $ionicModal) {
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);  
 
@@ -31,14 +31,31 @@ angular.module('starter.controllers', [])
     $scope.feeds = $firebase(ref);
   });
 
+  $ionicModal.fromTemplateUrl('add-feed.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  
+  $scope.showAddForm = function() {
+    $scope.newFeed = {};
+    $scope.modal.show();
+  };
+
+  $scope.closeAddForm = function() {
+    $scope.modal.hide();
+  };
+  
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+
   $scope.addFeed = function() {
-    var title = window.prompt('Enter title:');
-    if(title == null) return;
-    //It's a UX thing: If we cancel, don't open a second prompt!
-    var url   = window.prompt('Enter URL');
-    if(url == null) return;
-    
-    $scope.feeds.$add({title: title, url: url});
+    console.log("SCOPE:", $scope.newFeed.title, $scope.newFeed.url);
+    $scope.feeds.$add({title: $scope.newFeed.title, url: $scope.newFeed.url});
+    $scope.closeAddForm();
   }
 })
 

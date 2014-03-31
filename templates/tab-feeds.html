@@ -1,7 +1,31 @@
+<script id="add-feed.html" type="text/ng-template">
+  <div class="modal" title="Add a feed">
+  
+    <header class="bar bar-header bar-stable">
+      <h1 class="title">Add a feed</h1>
+    </header>
+      
+    <ion-content class="has-header">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Name" ng-model="newFeed.title">
+        </label>
+        <label class="item item-input">
+          <input type="url" placeholder="URL" ng-model="newFeed.url">
+        </label>
+        <div class="padding item">
+          <button class="button button-block button-positive" ng-click="addFeed()">Add</button>
+          <button class="button button-block button-dark" ng-click="closeAddForm()">Cancel</button>
+        </div>
+      </div>
+    </ion-content>
+  </div>
+</script>
+
 <ion-view title="Feeds">
 
   <ion-nav-buttons side="right">
-    <button class="button icon ion-plus-circled" ng-click="addFeed()"></button>
+    <button class="button icon ion-plus-circled" ng-click="showAddForm()"></button>
   </ion-nav-buttons>
 
   <ion-content class="padding" has-header="false">
