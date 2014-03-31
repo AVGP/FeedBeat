@@ -49,7 +49,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    
+
+    .state('tab.article', {
+      url: '/article/:feedIndex/:articleUrl',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/tab-article.html',
+          controller: 'ArticleCtrl'
+        }
+      }
+    })
+
     .state('tab.favourites', {
       url: '/favourites',
       views: {
@@ -59,7 +69,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-
+    
     .state('tab.account', {
       url: '/account',
       views: {
