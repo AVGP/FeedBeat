@@ -32,7 +32,13 @@ angular.module('starter.controllers', [])
   });
 
   $scope.addFeed = function() {
-    $scope.feeds.$add({title: window.prompt('Enter title:'), url: window.prompt('Enter URL')})
+    var title = window.prompt('Enter title:');
+    if(title == null) return;
+    //It's a UX thing: If we cancel, don't open a second prompt!
+    var url   = window.prompt('Enter URL');
+    if(url == null) return;
+    
+    $scope.feeds.$add({title: title, url: url});
   }
 })
 
