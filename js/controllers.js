@@ -14,8 +14,11 @@ angular.module('starter.controllers', [])
       }
       console.log("gAE", err, result);
       $scope.$apply(function() {
-        for(var i=0; i<result.feed.entries.length;i++) {
-          $scope.articles.push(result.feed.entries[i]);
+        for(var i=0; i<result.data.feed.entries.length;i++) {
+          var entry = result.data.feed.entries[i];
+          entry.feedId = result.feedId;
+          entry.link = btoa(entry.link);
+          $scope.articles.push(entry);
         }
       });
     });    
@@ -57,6 +60,32 @@ angular.module('starter.controllers', [])
     $scope.feeds.$add({title: $scope.newFeed.title, url: $scope.newFeed.url});
     $scope.closeAddForm();
   }
+})
+
+.controller('ArticleCtrl', function($scope, $stateParams, $firebaseSimpleLogin, Feeds) {
+
+  var ref = new Firebase('https://feedbeat.firebaseio.com/');
+  $scope.auth = $firebaseSimpleLogin(ref);
+
+  $scope.$on("$firebaseSimpleLogin:login", function(err, user) {
+    Feeds.init(user.id);
+    Feeds.loadEntries($stateParams.feedIndex, 20, function(result) {
+
+      $scope.$apply(function() {
+        for(var i=0; i<result.feed.entries.length;i++) {
+          var entry = result.feed.entries[i];
+          entry.link = btoa(entry.link);
+          
+          if(entry.link == $stateParams.articleUrl) {
+            $scope.title = entry.title;
+            $scope.article = entry.content;
+          }
+        }
+      });
+    });    
+  });
+
+  $scope.articleUrl = $stateParams.articleUrl;
 })
 
 .controller('FavouritesCtrl', function($scope) {
