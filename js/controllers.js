@@ -55,6 +55,7 @@ angular.module('starter.controllers', [])
             console.log(user);
           }, function error(error) {
             console.log(error);
+            Bugsense.notify(error, {email: $scope.$$childHead.email});
           });
         }
       }
