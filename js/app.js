@@ -7,7 +7,14 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'firebase'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $state) {
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+    if(toState.authOnly && !window.loggedIn) {
+      $state.go("tab.account");
+      event.preventDefault();
+    }
+  });
+
   $ionicPlatform.ready(function() {
     //StatusBar.styleDefault();
   });
@@ -37,7 +44,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           templateUrl: 'templates/tab-dash.html',
           controller: 'DashCtrl'
         }
-      }
+      },
+      authOnly: true
     })
 
     .state('tab.feeds', {
@@ -47,7 +55,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           templateUrl: 'templates/tab-feeds.html',
           controller: 'FeedsCtrl'
         }
-      }
+      },
+      authOnly: true
     })
 
     .state('tab.article', {
@@ -57,7 +66,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           templateUrl: 'templates/tab-article.html',
           controller: 'ArticleCtrl'
         }
-      }
+      },
+      authOnly: true
     })
 
     .state('tab.favourites', {
@@ -67,7 +77,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           templateUrl: 'templates/tab-favourites.html',
           controller: 'FavouritesCtrl'
         }
-      }
+      },
+      authOnly: true
     })
     
     .state('tab.account', {
