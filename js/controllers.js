@@ -95,10 +95,15 @@ angular.module('starter.controllers', [])
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);
   
+  $scope.$on("$firebaseSimpleLogin:logout", function() {
+    window.loggedIn = false;
+  });
+  
   $scope.logon = function() {
     $scope.auth.$login('password', { email: $scope.$$childHead.email, password: $scope.$$childHead.password }).then(
       function onSuccess(user) {
         console.log('Logged in!', user);
+        window.loggedIn = true;
       },
       function onError(error) {
         console.log("Error:", error);
