@@ -7,15 +7,18 @@
     <content src="index.html" />
     
     <access origin="*" />
-    
+    <feature name="http://api.phonegap.com/1.0/device" />
+    <preference name="load-url-timeout" value="120000" />
+
     <icon src="img/icon256.png" />
     
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-    
+<!--    
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
     </feature>
+-->
 </widget>

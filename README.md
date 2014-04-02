@@ -1,4 +1,4 @@
 FeedBeat
 ========
 
-A decentralized, fresh feed reader
+A web-based mobile-first, fresh feed reader app.
