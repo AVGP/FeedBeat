@@ -59,6 +59,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       authOnly: true
     })
 
+    .state('tab.feed', {
+      url: '/feed/{feedId}',
+      views: {
+        'tab-feeds': {
+          templateUrl: 'templates/tab-feed.html',
+          controller: 'FeedCtrl'
+        }
+      },
+      authOnly: true
+    })
+
     .state('tab.article', {
       url: '/article/:feedIndex/:articleUrl',
       views: {
