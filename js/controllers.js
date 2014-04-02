@@ -12,7 +12,6 @@ angular.module('starter.controllers', [])
       if(err) {
         alert("Whoops! " + err.message);
       }
-      console.log("gAE", err, result);
       $scope.$apply(function() {
         for(var i=0; i<result.data.feed.entries.length;i++) {
           var entry = result.data.feed.entries[i];
@@ -25,13 +24,42 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('FeedsCtrl', function($scope, $rootScope, $firebase, $firebaseSimpleLogin, $ionicModal) {
+.controller('FeedCtrl', function($scope, $firebaseSimpleLogin, $stateParams, Feeds) {
+  $scope.articles = [];
+
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
-  $scope.auth = $firebaseSimpleLogin(ref);  
+  $scope.auth = $firebaseSimpleLogin(ref);
 
   $scope.$on("$firebaseSimpleLogin:login", function(err, user) {
-    var ref = new Firebase('https://feedbeat.firebaseio.com/' + user.id);
-    $scope.feeds = $firebase(ref);
+    Feeds.init(user.id);
+    Feeds.loadEntries($stateParams.feedId, 20, function(result) {
+      $scope.$apply(function() {
+        for(var i=0; i<result.feed.entries.length;i++) {
+          var entry    = result.feed.entries[i];
+          entry.link   = btoa(entry.link);
+          entry.feedId = $stateParams.feedIndex;
+          $scope.articles.push(entry)
+        }
+        $scope.title = result.feed.title;
+      });
+    });
+  });
+})
+
+.controller('FeedsCtrl', function($scope, $rootScope, $firebase, $firebaseSimpleLogin, $ionicModal) {
+  var ref = new Firebase('https://feedbeat.firebaseio.com/');
+  $scope.auth = $firebaseSimpleLogin(ref);
+
+  $scope.$on("$firebaseSimpleLogin:login", function(err, user) {
+    var ref   = new Firebase('https://feedbeat.firebaseio.com/' + user.id),
+        feeds = $firebase(ref);
+
+    feeds.$on('loaded', function() {
+      feeds.$getIndex().forEach(function(index) {
+        feeds[index].id = index;
+      });
+      $scope.feeds = feeds;
+    });
   });
 
   $ionicModal.fromTemplateUrl('add-feed.html', {
@@ -56,7 +84,6 @@ angular.module('starter.controllers', [])
   });
 
   $scope.addFeed = function() {
-    console.log("SCOPE:", $scope.newFeed.title, $scope.newFeed.url);
     $scope.feeds.$add({title: $scope.newFeed.title, url: $scope.newFeed.url});
     $scope.closeAddForm();
   }
@@ -91,27 +118,28 @@ angular.module('starter.controllers', [])
 .controller('FavouritesCtrl', function($scope) {
 })
 
-.controller('AccountCtrl', function($scope, $firebase, $firebaseSimpleLogin) {
+.controller('AccountCtrl', function($scope, $rootScope, $firebase, $firebaseSimpleLogin) {
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);
   
   $scope.$on("$firebaseSimpleLogin:logout", function() {
+    console.log('LOGOUT');
     window.loggedIn = false;
   });
-  
+
+  $scope.$on("$firebaseSimpleLogin:login", function() {
+    console.log('LOGIN');
+    window.loggedIn = true;
+  });
+
   $scope.logon = function() {
     $scope.auth.$login('password', { email: $scope.$$childHead.email, password: $scope.$$childHead.password }).then(
       function onSuccess(user) {
-        console.log('Logged in!', user);
-        window.loggedIn = true;
       },
       function onError(error) {
-        console.log("Error:", error);
         if(error.code == 'INVALID_USER') {
-          $scope.auth.$createUser($scope.$$childHead.email, $scope.$$childHead.password, false).then(function success(user) {
-            console.log(user);
-          }, function error(error) {
-            console.log(error);
+          $scope.auth.$createUser($scope.$$childHead.email, $scope.$$childHead.password, false).then(function success(user) {},
+          function error(error) {
             Bugsense.notify(error, {email: $scope.$$childHead.email});
           });
         }
