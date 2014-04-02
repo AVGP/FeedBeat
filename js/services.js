@@ -47,15 +47,11 @@ angular.module('starter.services', [])
   self.logon = function(email, password) {
     auth.$login('password', { email: email, password: password, rememberMe: true }).then(
       function onSuccess(user) {
-        console.log('Logged in!', user);
       },
       function onError(error) {
-        console.log("Error:", error);
         if(error.code == 'INVALID_USER') {
           auth.$createUser(email, password, false).then(function success(user) {
-            console.log(user);
           }, function error(error) {
-            console.log(error);
           });
         }
       }
