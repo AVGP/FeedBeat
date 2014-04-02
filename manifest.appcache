@@ -1,0 +1,29 @@
+CACHE MANIFEST
+
+# Time: Wed Apr 02 2014 23:02:19 GMT+0000 (UTC)
+
+CACHE:
+http://avgp.github.io/FeedBeat
+http://avgp.github.io/FeedBeat/
+http://avgp.github.io/FeedBeat/lib/ionic/css/ionic.css
+http://avgp.github.io/FeedBeat/css/style.css
+http://avgp.github.io/FeedBeat/lib/bugsense.min.js
+http://avgp.github.io/FeedBeat/lib/ionic/js/ionic.bundle.js
+http://avgp.github.io/FeedBeat/lib/remotestorage.min.js
+https://cdn.firebase.com/v0/firebase.js
+http://cdn.firebase.com/js/simple-login/1.3.0/firebase-simple-login.js
+https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js
+https://www.google.com/jsapi
+http://avgp.github.io/FeedBeat/cordova.js
+http://avgp.github.io/FeedBeat/js/app.js
+http://avgp.github.io/FeedBeat/js/controllers.js
+http://avgp.github.io/FeedBeat/js/services.js
+https://www.google.com/uds/?file=feeds&v=1
+https://www.google.com/uds/api/feeds/1.0/482f2817cdf8982edf2e5669f9e3a627/default+en.css
+https://www.google.com/uds/api/feeds/1.0/482f2817cdf8982edf2e5669f9e3a627/default+en.I.js
+http://avgp.github.io/FeedBeat/lib/ionic/fonts/ionicons.ttf?v=1.4.1
+http://avgp.github.io/FeedBeat/templates/tabs.html
+http://avgp.github.io/FeedBeat/templates/tab-account.html
+
+NETWORK:
+*
