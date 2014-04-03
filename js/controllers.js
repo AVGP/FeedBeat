@@ -37,7 +37,7 @@ angular.module('starter.controllers', [])
         for(var i=0; i<result.feed.entries.length;i++) {
           var entry    = result.feed.entries[i];
           entry.link   = btoa(entry.link);
-          entry.feedId = $stateParams.feedIndex;
+          entry.feedId = $stateParams.feedId;
           $scope.articles.push(entry)
         }
         $scope.title = result.feed.title;
