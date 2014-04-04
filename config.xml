@@ -3,17 +3,15 @@
     <name>FeedBeat</name>
     <description>Decentralized, fresh feed reader</description>
     <author email="mr.avgp+appsupport@gmail.com" href="http://www.geekonaut.de/">Martin Naumann / Geekonaut</author>
-    
+
     <content src="index.html" />
-    
+
     <access origin="*" />
     <feature name="http://api.phonegap.com/1.0/device" />
     <preference name="load-url-timeout" value="120000" />
 
     <icon src="img/icon256.png" />
-    
-    <gap:plugin name="com.jamiestarke.webviewdebug" />
-    
+
     <preference name="android-minSdkVersion" value="19" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="false" />
