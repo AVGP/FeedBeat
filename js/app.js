@@ -7,7 +7,16 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'firebase'])
 
-.run(function($ionicPlatform, $rootScope, $state) {
+.run(function($ionicPlatform, $rootScope, $state, $firebaseSimpleLogin) {
+
+  var ref = new Firebase('https://feedbeat.firebaseio.com/');
+  $rootScope.auth = $firebaseSimpleLogin(ref);
+
+  $rootScope.$on("$firebaseSimpleLogin:login", function(err, user) {
+    $rootScope.user = user; 
+  });
+
+    
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
     if(toState.authOnly && !window.loggedIn) {
       $state.go("tab.account");
