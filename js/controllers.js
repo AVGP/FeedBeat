@@ -1,13 +1,10 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $firebaseSimpleLogin, Feeds) {
+.controller('DashCtrl', function($scope, $rootScope, Feeds) {
   $scope.articles = [];
   $scope.loading = true;
 
-  var ref = new Firebase('https://feedbeat.firebaseio.com/');
-  $scope.auth = $firebaseSimpleLogin(ref);
-
-  $scope.$on("$firebaseSimpleLogin:login", function(err, user) {
+  $rootScope.$watch('user', function(user) {
     Feeds.init(user.id);
     Feeds.getAllEntries(function(err, result) {
       if(err) {
@@ -27,14 +24,12 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('FeedCtrl', function($scope, $firebaseSimpleLogin, $stateParams, Feeds) {
+.controller('FeedCtrl', function($scope, $rootScope, $stateParams, Feeds) {
   $scope.articles = [];
   $scope.loading = true;
 
-  var ref = new Firebase('https://feedbeat.firebaseio.com/');
-  $scope.auth = $firebaseSimpleLogin(ref);
 
-  $scope.$on("$firebaseSimpleLogin:login", function(err, user) {
+  $rootScope.$watch("user", function(user) {
     Feeds.init(user.id);
     Feeds.loadEntries($stateParams.feedId, 20, function(result) {
       $scope.$apply(function() {
@@ -51,12 +46,10 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('FeedsCtrl', function($scope, $rootScope, $firebase, $firebaseSimpleLogin, $ionicModal) {
-  var ref = new Firebase('https://feedbeat.firebaseio.com/');
-  $scope.auth = $firebaseSimpleLogin(ref);
+.controller('FeedsCtrl', function($scope, $rootScope, $firebase, $ionicModal) {
   $scope.loading = true;
 
-  $scope.$on("$firebaseSimpleLogin:login", function(err, user) {
+  $rootScope.$watch("user", function(user) {
     var ref   = new Firebase('https://feedbeat.firebaseio.com/' + user.id),
         feeds = $firebase(ref);
 
