@@ -1,5 +1,9 @@
 <ion-view title="{{title}}">
   <ion-content class="has-header padding">
+    <div style="text-align: center" ng-show="loading">
+        <img src="img/spinner.gif">
+    </div>
+  
     <div class="card" ng-repeat="article in articles">
       <a class="item item-divider" href="#/tab/article/{{article.feedId}}/{{article.link}}">{{article.title}}</a>    
       <div class="item item-text-wrap">

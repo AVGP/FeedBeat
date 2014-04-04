@@ -2,6 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $firebaseSimpleLogin, Feeds) {
   $scope.articles = [];
+  $scope.loading = true;
 
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);
@@ -11,6 +12,7 @@ angular.module('starter.controllers', [])
     Feeds.getAllEntries(function(err, result) {
       if(err) {
         alert("Whoops! " + err.message);
+        $scope.loading = false;
       }
       $scope.$apply(function() {
         for(var i=0; i<result.data.feed.entries.length;i++) {
@@ -19,6 +21,7 @@ angular.module('starter.controllers', [])
           entry.link = btoa(entry.link);
           $scope.articles.push(entry);
         }
+        $scope.loading = false;
       });
     });    
   });
@@ -26,6 +29,7 @@ angular.module('starter.controllers', [])
 
 .controller('FeedCtrl', function($scope, $firebaseSimpleLogin, $stateParams, Feeds) {
   $scope.articles = [];
+  $scope.loading = true;
 
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);
@@ -41,6 +45,7 @@ angular.module('starter.controllers', [])
           $scope.articles.push(entry)
         }
         $scope.title = result.feed.title;
+        $scope.loading = false;
       });
     });
   });
@@ -49,6 +54,7 @@ angular.module('starter.controllers', [])
 .controller('FeedsCtrl', function($scope, $rootScope, $firebase, $firebaseSimpleLogin, $ionicModal) {
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);
+  $scope.loading = true;
 
   $scope.$on("$firebaseSimpleLogin:login", function(err, user) {
     var ref   = new Firebase('https://feedbeat.firebaseio.com/' + user.id),
@@ -59,6 +65,7 @@ angular.module('starter.controllers', [])
         feeds[index].id = index;
       });
       $scope.feeds = feeds;
+      $scope.loading = false;
     });
   });
 
@@ -93,6 +100,7 @@ angular.module('starter.controllers', [])
 
   var ref = new Firebase('https://feedbeat.firebaseio.com/');
   $scope.auth = $firebaseSimpleLogin(ref);
+  $scope.loading = true;
 
   $scope.$on("$firebaseSimpleLogin:login", function(err, user) {
     Feeds.init(user.id);
@@ -107,6 +115,7 @@ angular.module('starter.controllers', [])
             $scope.title = entry.title;
             $scope.article = entry.content;
           }
+          $scope.loading = false;
         }
       });
     });    
@@ -133,14 +142,17 @@ angular.module('starter.controllers', [])
   });
 
   $scope.logon = function() {
+    $scope.loading = true;
     $scope.auth.$login('password', { email: $scope.$$childHead.email, password: $scope.$$childHead.password }).then(
       function onSuccess(user) {
+          $scope.loading = false;
       },
       function onError(error) {
         if(error.code == 'INVALID_USER') {
           $scope.auth.$createUser($scope.$$childHead.email, $scope.$$childHead.password, false).then(function success(user) {},
           function error(error) {
             Bugsense.notify(error, {email: $scope.$$childHead.email});
+            $scope.loading = false;
           });
         }
       }

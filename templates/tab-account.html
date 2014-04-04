@@ -14,8 +14,9 @@
           <label class="item item-input">
             <input type="password" placeholder="Password" ng-model="password">
           </label>
-          <div class="padding">
+          <div class="padding" style="text-align: center">
             <button class="button button-block button-positive" ng-click="logon()">Sign in</button>
+            <img src="img/spinner.gif" ng-show="loading">
           </div>
         </div>
       </div>

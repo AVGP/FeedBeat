@@ -29,6 +29,10 @@
   </ion-nav-buttons>
 
   <ion-content class="padding" has-header="false">
+    <div style="text-align: center" ng-show="loading">
+        <img src="img/spinner.gif">
+    </div>
+  
     <ul class="list">
       <li ng-repeat="feed in feeds">
         <a href="#/tab/feed/{{feed.id}}" class="item">{{feed.title}}</a>
