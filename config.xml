@@ -12,6 +12,8 @@
 
     <icon src="img/icon256.png" />
     
+    <gap:plugin name="com.jamiestarke.webviewdebug" />
+    
     <preference name="android-minSdkVersion" value="19" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="false" />
