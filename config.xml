@@ -10,7 +10,7 @@
     <feature name="http://api.phonegap.com/1.0/device" />
     <preference name="load-url-timeout" value="120000" />
 
-    <icon src="img/icon256.png" />
+    <icon src="img/icon96.png" />
 
     <preference name="android-minSdkVersion" value="19" />
     <preference name="fullscreen" value="true" />
