@@ -21,6 +21,18 @@
         </div>
       </div>
     </div>
+    
+    <div ng-show="window.navigator.mozApps">
+      <div class="item item-divider">Installation</div>
+      <div class="item item-text-wrap">
+        You can install this application to your homescreen by pressing the button below:
+        
+        <div class="padding">
+          <button class="button button-block button-positive" ng-click="install()" ng-hide="installed">Install</button>
+          <p ng-show="installed">App is already installed.</p>
+        </div>
+      </div>
+    </div>
   
   </ion-content>
 </ion-view>
