@@ -1,0 +1,14 @@
+{
+  "name": "FeedBeat",
+  "description": "Newsfeed reader",
+  "launch_path": "/FeedBeat/index.html",
+  "icons": {
+    "128": "/FeedBeat/img/icon128.png",
+    "96" : "/FeedBeat/img/icon96.png"
+  },
+  "developer": {
+    "name": "Geekonaut",
+    "url": "http://www.geekonaut.de"
+  },
+  "default_locale": "en"
+}
