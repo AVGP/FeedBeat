@@ -174,13 +174,15 @@ angular.module('starter.controllers', [])
       alert("Whoops, your platform does not support app installation from the web!");
       return;
     }
-    
     var install = window.navigator.mozApps.install('http://avgp.github.io/FeedBeat/manifest.webapp');
-    install.onError = function() {
+    install.onerror = function() {
       alert("Installation has failed: " + this.error.name);
     }
-    install.onSuccess = function() {
+    install.onsuccess = function() {
       alert("Successfully installed!");
+      $scope.$apply(function() {
+        $scope.installed = true;
+      })
     }
   }
 });
